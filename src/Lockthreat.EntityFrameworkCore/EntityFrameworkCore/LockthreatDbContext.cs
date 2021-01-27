@@ -59,6 +59,23 @@ namespace Lockthreat.EntityFrameworkCore
     {
 
 
+        public virtual DbSet<AuthoratativeDocumentQuestion> AuthoratativeDocumentQuestions { get; set; }
+        public virtual DbSet<AuthoratativeDocumentProject> AuthoratativeDocumentProjects { get; set; }
+        public virtual DbSet<AuthoratativeDocumentProgram> AuthoratativeDocumentPrograms { get; set; }
+        public virtual DbSet<AuthoratativeDocumentITService> AuthoratativeDocumentITServices { get; set; }
+        public virtual DbSet<AuthoratativeDocumentFinding> AuthoratativeDocumentFindings { get; set; }
+        public virtual DbSet<AuthoratativeDocumentCitation> AuthoratativeDocumentCitations { get; set; }
+        
+        public virtual DbSet<EmployeeCyberAwarenessScore> EmployeeCyberAwarenessScores { get; set; }
+        public virtual DbSet<EmployeeContract> EmployeeContracts { get; set; }
+        public virtual DbSet<EmployeeException> EmployeeExceptions { get; set; }
+        public virtual DbSet<InternalControlSystemApplication> InternalControlSystemApplications { get; set; }
+        public virtual DbSet<InternalControlRiskManagementTitle> InternalControlRiskManagementTitles { get; set; }
+        public virtual DbSet<InternalControlRiskManagement> InternalControlRiskManagements { get; set; }
+        public virtual DbSet<InternalControlPolicyManager> InternalControlPolicyManagers { get; set; }
+        public virtual DbSet<InternalControlAssignedTester> InternalControlAssignedTesters { get; set; }
+        public virtual DbSet<InternalControlCitation> InternalControlCitations { get; set; }
+        public virtual DbSet<InternalControlFacilitieDatacenter> InternalControlFacilitieDatacenters { get; set; }
 
         public virtual DbSet<MeetingFinding> MeetingFindings { get; set; }
         public virtual DbSet<RemediationException> RemediationExceptions { get; set; }
