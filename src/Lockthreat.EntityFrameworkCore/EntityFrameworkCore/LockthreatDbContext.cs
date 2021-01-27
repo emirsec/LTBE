@@ -39,12 +39,47 @@ using Lockthreat.ControlOperatingTests;
 using Lockthreat.StrategicObjectives;
 using Lockthreat.RiskManagements;
 using Lockthreat.ControlDesigns;
+using Lockthreat.Contracts;
+using Lockthreat.CyberAwarenessScores;
+using Lockthreat.Contacts;
+using Lockthreat.Citations;
+using Lockthreat.Questions;
 
 namespace Lockthreat.EntityFrameworkCore
 {
     public class LockthreatDbContext : AbpZeroDbContext<Tenant, Role, User, LockthreatDbContext>, IAbpPersistedGrantDbContext
     {
 
+        public virtual DbSet<Question> Questions { get; set; }
+        public virtual DbSet<Contact> Contacts { get; set; }
+        public virtual DbSet<Citation> Citations { get; set; }
+
+        public virtual DbSet<CyberAwarenessScoreOrganization> CyberAwarenessScoreOrganizations { get; set; }
+        public virtual DbSet<CyberAwarenessScoreBusinessUnit> CyberAwarenessScoreBusinessUnits { get; set; }
+        public virtual DbSet<CyberAwarenessScoreAuthoratativeDocument> CyberAwarenessScoreAuthoratativeDocuments { get; set; }
+        public virtual DbSet<CyberAwarenessScore> CyberAwarenessScores { get; set; }
+
+
+        public virtual DbSet<IncidentFinding> IncidentFindings { get; set; }
+        public virtual DbSet<IncidentReviewer> IncidentReviewers { get; set; }
+        public virtual DbSet<IncidentAttachment> IncidentAttachments { get; set; }
+        public virtual DbSet<InternalControlFinding> InternalControlFindings { get; set; }
+        public virtual DbSet<ITServiceContract> ITServiceContracts { get; set; }
+        public virtual DbSet<ITServiceAuthoratativeDocument> ITServiceAuthoratativeDocuments { get; set; }
+        public virtual DbSet<ContractRiskTreatment> ContractRiskTreatments { get; set; }
+        public virtual DbSet<ContractITService> ContractITServices { get; set; }
+        public virtual DbSet<ContractEmployeeNotification> ContractEmployeeNotifications { get; set; }
+        public virtual DbSet<ContractEmployee> ContractEmployees { get; set; }
+        public virtual DbSet<ContractBusinessService> ContractBusinessServices { get; set; }
+        public virtual DbSet<ContractBusinessProcess> ContractBusinessProcess { get; set; }
+        public virtual DbSet<Contract> Contracts { get; set; }
+        public virtual DbSet<EmployeeBusinessService> EmployeeBusinessServices { get; set; }
+        public virtual DbSet<EmployeeAttachment> EmployeeAttachments { get; set; }
+        public virtual DbSet<AuthoratativeDocumentOrganization> AuthoratativeDocumentOrganizations { get; set; }
+        public virtual DbSet<AuthoratativeDocumentBusinessUnit> AuthoratativeDocumentBusinessUnits { get; set; }
+        public virtual DbSet<AuditWorkpaperReviewer> AuditWorkpaperReviewers { get; set; }
+        public virtual DbSet<AuditWorkpaperEvidence> AuditWorkpaperEvidences { get; set; }
+        public virtual DbSet<AuditWorkpaper> AuditWorkpapers { get; set; }
 
 
         public virtual DbSet<ControlDesign> ControlDesigns { get; set; }
@@ -68,9 +103,6 @@ namespace Lockthreat.EntityFrameworkCore
         public virtual DbSet<FindingOrganization> FindingOrganizations { get; set; }
         public virtual DbSet<FindingVendor> FindingVendors { get; set; }
         public virtual DbSet<FindingVirtualHost> FindingVirtualHosts { get; set; }
-
-
-
         public virtual DbSet<HardwareAsset> HardwareAssets { get; set; }
         public virtual DbSet<HardwareAssetBusinessService> HardwareAssetBusinessServices { get; set; }
         public virtual DbSet<HardwareAssetITservice> HardwareAssetITservices { get; set; }
