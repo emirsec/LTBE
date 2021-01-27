@@ -4,14 +4,16 @@ using Lockthreat.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Lockthreat.Migrations
 {
     [DbContext(typeof(LockthreatDbContext))]
-    partial class LockthreatDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210127064222_added-BusinessService,ITService,ITServiceBusinessService,ITServiceBusinessUnit,BusinessServiceUnit,BusinessITService-table")]
+    partial class addedBusinessServiceITServiceITServiceBusinessServiceITServiceBusinessUnitBusinessServiceUnitBusinessITServicetable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

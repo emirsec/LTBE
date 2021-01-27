@@ -12,12 +12,23 @@ using Lockthreat.MultiTenancy.Accounting;
 using Lockthreat.MultiTenancy.Payments;
 using Lockthreat.Storage;
 using Lockthreat.OrganizationSetups;
+using Lockthreat.BusinessEntities;
+using Lockthreat.Employees;
+using Lockthreat.BusinessServices;
+using Lockthreat.ITServices;
 
 namespace Lockthreat.EntityFrameworkCore
 {
     public class LockthreatDbContext : AbpZeroDbContext<Tenant, Role, User, LockthreatDbContext>, IAbpPersistedGrantDbContext
     {
-
+        public virtual DbSet<BusinessITService> BusinessITServices { get; set; }
+        public virtual DbSet<BusinessServiceUnit> BusinessServiceUnits { get; set; }
+        public DbSet<ITServiceBusinessUnit> ITServiceBusinessUnits { get; set; }
+        public DbSet<ITServiceBusinessService> ITServiceBusinessServices { get; set; }
+        public virtual DbSet<ITService> ITServices { get; set; }
+        public virtual DbSet<BusinessService> BusinessServices { get; set; }
+        public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<BusinessUnit> BusinessUnits { get; set; }
         public virtual DbSet<LockThreatOrganization> LockThreatOrganizations { get; set; }
 
 
