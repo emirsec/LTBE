@@ -55,11 +55,20 @@ using Lockthreat.ControlProcedures;
 using Lockthreat.BusinessImpactAnalysis_BIA_;
 using Lockthreat.CodeGenerators;
 using Lockthreat.IssueManagements;
+using Lockthreat.ReviewAssessments;
+using Lockthreat.ReviewsAssessments;
 
 namespace Lockthreat.EntityFrameworkCore
 {
     public class LockthreatDbContext : AbpZeroDbContext<Tenant, Role, User, LockthreatDbContext>, IAbpPersistedGrantDbContext
     {
+
+        public virtual DbSet<ReviewAssessmentOraganization> ReviewAssessmentOraganizations { get; set; }
+        public virtual DbSet<ReviewAssessmentAuthoratativeDocument> ReviewAssessmentAuthoratativeDocuments { get; set; }
+        public virtual DbSet<ReviewAssessmentVendor> ReviewAssessmentVendors { get; set; }
+        public virtual DbSet<ReviewAssessmentQuestion> ReviewAssessmentQuestions { get; set; }
+        public virtual DbSet<ReviewAssessmentBusinessUnit> ReviewAssessmentBusinessUnits { get; set; }
+        public virtual DbSet<ReviewAssessment> ReviewAssessments { get; set; }
 
         public virtual DbSet<EmployeeService> EmployeeServices { get; set; }
         public virtual DbSet<IssueManageMentProject> IssueManageMentProjects { get; set; }
@@ -72,7 +81,6 @@ namespace Lockthreat.EntityFrameworkCore
         public virtual DbSet<BIAFinding> BIAFindings { get; set; }
         public virtual DbSet<BIAException> BIAExceptions { get; set; }
         public virtual DbSet<BIABusinessProcess> BIABusinessProcesses { get; set; }
-
         public virtual DbSet<AuthoratativeDocumentQuestion> AuthoratativeDocumentQuestions { get; set; }
         public virtual DbSet<AuthoratativeDocumentProject> AuthoratativeDocumentProjects { get; set; }
         public virtual DbSet<AuthoratativeDocumentProgram> AuthoratativeDocumentPrograms { get; set; }
