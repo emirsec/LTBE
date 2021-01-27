@@ -44,22 +44,54 @@ using Lockthreat.CyberAwarenessScores;
 using Lockthreat.Contacts;
 using Lockthreat.Citations;
 using Lockthreat.Questions;
+using Lockthreat.PolicyManagers;
+using Lockthreat.ControlStandards;
+using Lockthreat.RiskTreatments;
+using Lockthreat.KeyPerformanceIndicators;
+using Lockthreat.KeyRiskIndicators;
 
 namespace Lockthreat.EntityFrameworkCore
 {
     public class LockthreatDbContext : AbpZeroDbContext<Tenant, Role, User, LockthreatDbContext>, IAbpPersistedGrantDbContext
     {
 
+        public virtual DbSet<KeyRiskIndicatorBusinessUnit> KeyRiskIndicatorBusinessUnits { get; set; }
+        public virtual DbSet<KeyRiskIndicator> KeyRiskIndicators { get; set; }
+        public virtual DbSet<KeyPerformanceIndicatorBusinessUnit> KeyPerformanceIndicatorBusinessUnits { get; set; }
+        public virtual DbSet<KeyPerformanceIndicatorAdministrator> KeyPerformanceIndicatorAdministrators { get; set; }
+        public virtual DbSet<KeyPerformanceIndicator> KeyPerformanceIndicators { get; set; }
+
+        public virtual DbSet<RiskManagementFinding> RiskManagementFindings { get; set; }
+        public virtual DbSet<RiskManagementBusinessProcess> RiskManagementBusinessProcess { get; set; }
+        public virtual DbSet<RiskManagementAssetInformation> RiskManagementAssetInformations { get; set; }
+
+        public virtual DbSet<CyberAwarenessScoreEmployee> CyberAwarenessScoreEmployees { get; set; }
+        public virtual DbSet<CyberAwarenessScoreQuestion> CyberAwarenessScoreQuestions { get; set; }
+        public virtual DbSet<RiskTreatmentVendor> RiskTreatmentVendors { get; set; }
+        public virtual DbSet<RiskTreatmentContract> RiskTreatmentContracts { get; set; }
+        public virtual DbSet<RiskTreatmentAttachment> RiskTreatmentAttachments { get; set; }
+        public virtual DbSet<RiskTreatment> RiskTreatments { get; set; }
+        public virtual DbSet<ContractAttachment> ContractAttachments { get; set; }
+        public virtual DbSet<ContactCyberAwarenessScore> ContactCyberAwarenessScores { get; set; }
+        public virtual DbSet<CitationControlStandard> CitationControlStandards { get; set; }
+        public virtual DbSet<CitationQuestion> CitationQuestions { get; set; }
+        public virtual DbSet<ControlStandardCitation> ControlStandardCitations { get; set; }
+        public virtual DbSet<ControlStandard> ControlStandards { get; set; }
+        public virtual DbSet<PolicyDistribution> PolicyDistributions { get; set; }
+        public virtual DbSet<PolicyImpactedOranization> PolicyImpactedOranizations { get; set; }
+        public virtual DbSet<PolicyAuthoratativeDocument> PolicyAuthoratativeDocuments { get; set; }
+        public virtual DbSet<PolicyReviewer> PolicyReviewers { get; set; }
+        public virtual DbSet<PolicyManager> PolicyManagers { get; set; }
+        public virtual DbSet<QuestionAuthoratativeDocument> QuestionAuthoratativeDocuments { get; set; }
+
+
         public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<Contact> Contacts { get; set; }
         public virtual DbSet<Citation> Citations { get; set; }
-
         public virtual DbSet<CyberAwarenessScoreOrganization> CyberAwarenessScoreOrganizations { get; set; }
         public virtual DbSet<CyberAwarenessScoreBusinessUnit> CyberAwarenessScoreBusinessUnits { get; set; }
         public virtual DbSet<CyberAwarenessScoreAuthoratativeDocument> CyberAwarenessScoreAuthoratativeDocuments { get; set; }
         public virtual DbSet<CyberAwarenessScore> CyberAwarenessScores { get; set; }
-
-
         public virtual DbSet<IncidentFinding> IncidentFindings { get; set; }
         public virtual DbSet<IncidentReviewer> IncidentReviewers { get; set; }
         public virtual DbSet<IncidentAttachment> IncidentAttachments { get; set; }
@@ -80,8 +112,6 @@ namespace Lockthreat.EntityFrameworkCore
         public virtual DbSet<AuditWorkpaperReviewer> AuditWorkpaperReviewers { get; set; }
         public virtual DbSet<AuditWorkpaperEvidence> AuditWorkpaperEvidences { get; set; }
         public virtual DbSet<AuditWorkpaper> AuditWorkpapers { get; set; }
-
-
         public virtual DbSet<ControlDesign> ControlDesigns { get; set; }
         public virtual DbSet<RiskManagement> RiskManagements { get; set; }
         public virtual DbSet<StrategicObjective> StrategicObjectives { get; set; }
