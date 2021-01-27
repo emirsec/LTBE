@@ -38,4 +38,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Lockthreat.Core.Shared\Lockthreat.Core.Shared.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="OrganizationSetups\" />
+  </ItemGroup>
 </Project>
