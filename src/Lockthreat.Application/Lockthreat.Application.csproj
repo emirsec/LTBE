@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\common.props"></Import>
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
+    <AssemblyName>Lockthreat.Application</AssemblyName>
+    <PackageId>Lockthreat.Application</PackageId>
+    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+    <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <RootNamespace>Lockthreat</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Abp.EntityFrameworkCore.EFPlus" Version="6.0.0" />
+    <PackageReference Include="NPOI" Version="2.5.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Lockthreat.Application.Shared\Lockthreat.Application.Shared.csproj" />
+    <ProjectReference Include="..\Lockthreat.Core\Lockthreat.Core.csproj" />
+    <ProjectReference Include="..\Lockthreat.EntityFrameworkCore\Lockthreat.EntityFrameworkCore.csproj" />
+  </ItemGroup>
+</Project>
