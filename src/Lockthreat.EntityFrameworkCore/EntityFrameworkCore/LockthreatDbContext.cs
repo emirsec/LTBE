@@ -16,11 +16,46 @@ using Lockthreat.BusinessEntities;
 using Lockthreat.Employees;
 using Lockthreat.BusinessServices;
 using Lockthreat.ITServices;
+using Lockthreat.BusinessProcesses;
+using Lockthreat.AuthoratativeDocuments;
+using Lockthreat.AddTasks;
+using Lockthreat.Meetings;
+using Lockthreat.Projects;
+using Lockthreat.GrcPrograms;
 
 namespace Lockthreat.EntityFrameworkCore
 {
     public class LockthreatDbContext : AbpZeroDbContext<Tenant, Role, User, LockthreatDbContext>, IAbpPersistedGrantDbContext
     {
+
+        public virtual DbSet<ProgramAuthoritativeDocument> ProgramAuthoritativeDocuments { get; set; }
+        public virtual DbSet<ProgramCoordinator> ProgramCoordinators { get; set; }
+        public virtual DbSet<ProgramTeam> ProgramTeams { get; set; }
+        public virtual DbSet<ProgramCountry> ProgramCountrys { get; set; }
+        public virtual DbSet<ProjectTeamMemberProject> ProjectTeamMemberProjects { get; set; }
+        public virtual DbSet<ProjectTeamMemberExternal> ProjectTeamMemberExternals { get; set; }
+        public virtual DbSet<ProjectTeamMember> ProjectTeamMembers { get; set; }
+        public virtual DbSet<ProjectCountries> ProjectCountries { get; set; }
+        public virtual DbSet<ProjectComponent> ProjectComponents { get; set; }
+        public virtual DbSet<ProjectAuthoratativeDocument> ProjectAuthoratativeDocuments { get; set; }
+        public virtual DbSet<GrcProgram> GrcPrograms { get; set; }
+        public virtual DbSet<MeetingAttendUser> MeetingAttendUsers { get; set; }
+        public virtual DbSet<MeetingAbsenteeUser> MeetingAbsenteeUsers { get; set; }
+        public virtual DbSet<Project> Projects { get; set; }
+        public virtual DbSet<Meeting> Meetings { get; set; }
+        public virtual DbSet<MeetingTask> MeetingTasks { get; set; }
+        public virtual DbSet<TaskNotification> TaskNotifications { get; set; }
+        public virtual DbSet<TaskAttachment> TaskAttachments { get; set; }
+        public virtual DbSet<TaskRelatedMember> TaskRelatedMembers { get; set; }
+        public virtual DbSet<TaskAssociatedProject> TaskAssociatedProjects { get; set; }
+        public virtual DbSet<AddTask> AddTasks { get; set; }
+
+
+        public virtual DbSet<AuthoratativeDocument> AuthoratativeDocuments { get; set; }
+        public virtual DbSet<BusinessProcessUnit> BusinessProcessUnits { get; set; }
+        public virtual DbSet<BusinessProcessService> BusinessProcessServices { get; set; }
+        public virtual DbSet<BusinessProcessAuthoratativeDocument> BusinessProcessAuthoratativeDocuments { get; set; }
+        public virtual DbSet<BusinessProcess> BusinessProcess { get; set; }
         public virtual DbSet<BusinessITService> BusinessITServices { get; set; }
         public virtual DbSet<BusinessServiceUnit> BusinessServiceUnits { get; set; }
         public DbSet<ITServiceBusinessUnit> ITServiceBusinessUnits { get; set; }
