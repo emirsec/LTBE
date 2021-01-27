@@ -22,12 +22,90 @@ using Lockthreat.AddTasks;
 using Lockthreat.Meetings;
 using Lockthreat.Projects;
 using Lockthreat.GrcPrograms;
+using Lockthreat.ApplicationConfigurations;
+using Lockthreat.AssetInformations;
+using Lockthreat.Audits;
+using Lockthreat.Vendors;
+using Lockthreat.FacilitieDatacenters;
+using Lockthreat.FacilitiesDatacenters;
+using Lockthreat.Findings;
+using Lockthreat.SystemApplications;
+using Lockthreat.VirtualAssets;
+using Lockthreat.HardwareAssets;
+using Lockthreat.FindingsInformation;
+using Lockthreat.InternalControls;
+using Lockthreat.Incidents;
+using Lockthreat.ControlOperatingTests;
+using Lockthreat.StrategicObjectives;
+using Lockthreat.RiskManagements;
+using Lockthreat.ControlDesigns;
 
 namespace Lockthreat.EntityFrameworkCore
 {
     public class LockthreatDbContext : AbpZeroDbContext<Tenant, Role, User, LockthreatDbContext>, IAbpPersistedGrantDbContext
     {
 
+
+
+        public virtual DbSet<ControlDesign> ControlDesigns { get; set; }
+        public virtual DbSet<RiskManagement> RiskManagements { get; set; }
+        public virtual DbSet<StrategicObjective> StrategicObjectives { get; set; }
+        public virtual DbSet<ControlOperatingTest> ControlOperatingTests { get; set; }
+        public virtual DbSet<Incident> Incidents { get; set; }
+        public virtual DbSet<InternalControl> InternalControls { get; set; }
+        public virtual DbSet<FindingAssetInformation> FindingAssetInformations { get; set; }
+        public virtual DbSet<FindingAuthoratativeSource> FindingAuthoratativeSources { get; set; }
+        public virtual DbSet<FindingBusinessUnit> FindingBusinessUnits { get; set; }
+        public virtual DbSet<FindingControlDesign> FindingControlDesigns { get; set; } 
+        public virtual DbSet<FindingRiskRegister> FindingRiskRegisters { get; set; }
+        public virtual DbSet<FindingStrategicObjective> FindingStrategicObjectives { get; set; }
+        public virtual DbSet<FindingSystemsApplication> FindingSystemsApplications { get; set; }
+        public virtual DbSet<FindingControlOperating> FindingControlOperatings { get; set; }
+        public virtual DbSet<FindingFacilitieDatacenter> FindingFacilitieDatacenters { get; set; }
+        public virtual DbSet<FindingHardwareAsset> FindingHardwareAssets { get; set; }
+        public virtual DbSet<FindingIncident> FindingIncidents { get; set; }
+        public virtual DbSet<FindingInternalControl> FindingInternalControls { get; set; }
+        public virtual DbSet<FindingOrganization> FindingOrganizations { get; set; }
+        public virtual DbSet<FindingVendor> FindingVendors { get; set; }
+        public virtual DbSet<FindingVirtualHost> FindingVirtualHosts { get; set; }
+
+
+
+        public virtual DbSet<HardwareAsset> HardwareAssets { get; set; }
+        public virtual DbSet<HardwareAssetBusinessService> HardwareAssetBusinessServices { get; set; }
+        public virtual DbSet<HardwareAssetITservice> HardwareAssetITservices { get; set; }
+        public virtual DbSet<HardwareAssetBusinessprocess> HardwareAssetBusinessProcess { get; set; }
+        public virtual DbSet<VirtualAsset> VirtualAssets { get; set; }
+        public virtual DbSet<VirtualAssetBusinessService> VirtualAssetBusinessServices { get; set; }
+        public virtual DbSet<VirtualAssetBusinessprocess> VirtualAssetBusinessprocess { get; set; }
+        public virtual DbSet<VirtualAssetITservice> VirtualAssetITservices { get; set; }
+        public virtual DbSet<FindingVirtualMachine> FindingVirtualMachines { get; set; }
+        public virtual DbSet<Finding> Findings { get; set; }
+        public virtual DbSet<SystemApplicationService> SystemApplicationServices { get; set; }
+        public virtual DbSet<SysteamApplicationBusinessProcess> SysteamApplicationBusinessProcess { get; set; }
+        public virtual DbSet<SysteamApplicationITservice> SysteamApplicationITservices { get; set; }
+        public virtual DbSet<SystemApplication> SystemApplications { get; set; }
+        public virtual DbSet<FacilitieDatacenterITService> FacilitieDatacenterITServices { get; set; }
+        public virtual DbSet<FacilitieDatacenterService> FacilitieDatacenterServices { get; set; }
+        public virtual DbSet<FacilitieDatacenterProcess> FacilitieDatacenterProcess { get; set; }
+        public virtual DbSet<FacilitieDatacenter> FacilitieDatacenters { get; set; }
+        public virtual DbSet<VendorProductService> VendorProductServices { get; set; }
+        public virtual DbSet<AuditSystemApplication> AuditSystemApplications { get; set; }
+        public virtual DbSet<AuditFinding> AuditFindings { get; set; }
+        public virtual DbSet<AuditVendor> AuditVendors { get; set; }
+        public virtual DbSet<AuditAttachment> AuditAttachments { get; set; }
+        public virtual DbSet<AuditTeam> AuditTeams { get; set; }
+        public virtual DbSet<AuditFacilitieDatacenter> AuditFacilitieDatacenters { get; set; }
+        public virtual DbSet<AuditBusinessService> AuditBusinessServices { get; set; }
+        public virtual DbSet<AuditBusinessProcess> AuditBusinessProcess { get; set; }
+        public virtual DbSet<AuditAuditor> AuditAuditors { get; set; }
+        public virtual DbSet<Vendor> Vendors { get; set; }
+        public virtual DbSet<Audit> Audits { get; set; }
+        public virtual DbSet<AssetInformationBusinessService> AssetInformationBusinessServices { get; set; }
+        public virtual DbSet<AssetInformationBusinessprocess> AssetInformationBusinessprocess { get; set; }
+        public virtual DbSet<AssetInformationITservice> AssetInformationITservices { get; set; }
+        public virtual DbSet<AssetInformation> AssetInformations { get; set; }
+        public virtual DbSet<ApplicationConfiguration> ApplicationConfigurations { get; set; }
         public virtual DbSet<ProgramAuthoritativeDocument> ProgramAuthoritativeDocuments { get; set; }
         public virtual DbSet<ProgramCoordinator> ProgramCoordinators { get; set; }
         public virtual DbSet<ProgramTeam> ProgramTeams { get; set; }
@@ -49,8 +127,6 @@ namespace Lockthreat.EntityFrameworkCore
         public virtual DbSet<TaskRelatedMember> TaskRelatedMembers { get; set; }
         public virtual DbSet<TaskAssociatedProject> TaskAssociatedProjects { get; set; }
         public virtual DbSet<AddTask> AddTasks { get; set; }
-
-
         public virtual DbSet<AuthoratativeDocument> AuthoratativeDocuments { get; set; }
         public virtual DbSet<BusinessProcessUnit> BusinessProcessUnits { get; set; }
         public virtual DbSet<BusinessProcessService> BusinessProcessServices { get; set; }
