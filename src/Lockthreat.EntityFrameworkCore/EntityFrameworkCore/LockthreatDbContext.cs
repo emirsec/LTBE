@@ -52,20 +52,33 @@ using Lockthreat.KeyRiskIndicators;
 using Lockthreat.Exceptions;
 using Lockthreat.Remediations;
 using Lockthreat.ControlProcedures;
+using Lockthreat.BusinessImpactAnalysis_BIA_;
+using Lockthreat.CodeGenerators;
+using Lockthreat.IssueManagements;
 
 namespace Lockthreat.EntityFrameworkCore
 {
     public class LockthreatDbContext : AbpZeroDbContext<Tenant, Role, User, LockthreatDbContext>, IAbpPersistedGrantDbContext
     {
 
+        public virtual DbSet<EmployeeService> EmployeeServices { get; set; }
+        public virtual DbSet<IssueManageMentProject> IssueManageMentProjects { get; set; }
+        public virtual DbSet<IssueManagement> IssueManagements { get; set; }
+        public virtual DbSet<CodeGenerator> CodeGenerators { get; set; }
+        public virtual DbSet<BusinessImpactAnalysis> BusinessImpactAnalysises { get; set; }
+        public virtual DbSet<BIAStrategicObjective> BIAStrategicObjectives { get; set; }
+        public virtual DbSet<BIAInternalControl> BIAInternalControls { get; set; }
+        public virtual DbSet<BIAInformationAsset> BIAInformationAssets { get; set; }
+        public virtual DbSet<BIAFinding> BIAFindings { get; set; }
+        public virtual DbSet<BIAException> BIAExceptions { get; set; }
+        public virtual DbSet<BIABusinessProcess> BIABusinessProcesses { get; set; }
 
         public virtual DbSet<AuthoratativeDocumentQuestion> AuthoratativeDocumentQuestions { get; set; }
         public virtual DbSet<AuthoratativeDocumentProject> AuthoratativeDocumentProjects { get; set; }
         public virtual DbSet<AuthoratativeDocumentProgram> AuthoratativeDocumentPrograms { get; set; }
         public virtual DbSet<AuthoratativeDocumentITService> AuthoratativeDocumentITServices { get; set; }
         public virtual DbSet<AuthoratativeDocumentFinding> AuthoratativeDocumentFindings { get; set; }
-        public virtual DbSet<AuthoratativeDocumentCitation> AuthoratativeDocumentCitations { get; set; }
-        
+        public virtual DbSet<AuthoratativeDocumentCitation> AuthoratativeDocumentCitations { get; set; }        
         public virtual DbSet<EmployeeCyberAwarenessScore> EmployeeCyberAwarenessScores { get; set; }
         public virtual DbSet<EmployeeContract> EmployeeContracts { get; set; }
         public virtual DbSet<EmployeeException> EmployeeExceptions { get; set; }
@@ -76,7 +89,6 @@ namespace Lockthreat.EntityFrameworkCore
         public virtual DbSet<InternalControlAssignedTester> InternalControlAssignedTesters { get; set; }
         public virtual DbSet<InternalControlCitation> InternalControlCitations { get; set; }
         public virtual DbSet<InternalControlFacilitieDatacenter> InternalControlFacilitieDatacenters { get; set; }
-
         public virtual DbSet<MeetingFinding> MeetingFindings { get; set; }
         public virtual DbSet<RemediationException> RemediationExceptions { get; set; }
         public virtual DbSet<RiskTreatmentException> RiskTreatmentExceptions { get; set; }
