@@ -57,19 +57,27 @@ using Lockthreat.CodeGenerators;
 using Lockthreat.IssueManagements;
 using Lockthreat.ReviewAssessments;
 using Lockthreat.ReviewsAssessments;
+using Lockthreat.ReviewDatas;
 
 namespace Lockthreat.EntityFrameworkCore
 {
     public class LockthreatDbContext : AbpZeroDbContext<Tenant, Role, User, LockthreatDbContext>, IAbpPersistedGrantDbContext
     {
 
+
+        public virtual DbSet<MeetingIssueIdentified> MeetingIssueIdentifieds { get; set; }
+        public virtual DbSet<ProjectAudit> ProjectAudits { get; set; }
+        public virtual DbSet<QuestionReviewAssessment> QuestionReviewAssessments { get; set; }
+        public virtual DbSet<QuestionReviewData> QuestionReviewData { get; set; }
+        public virtual DbSet<QuestionTarget> QuestionTargets { get; set; }
+        public virtual DbSet<EmployeeReviewData> EmployeeReviewDatas { get; set; }
+        public virtual DbSet<ReviewData> ReviewDatas { get; set; }
         public virtual DbSet<ReviewAssessmentOraganization> ReviewAssessmentOraganizations { get; set; }
         public virtual DbSet<ReviewAssessmentAuthoratativeDocument> ReviewAssessmentAuthoratativeDocuments { get; set; }
         public virtual DbSet<ReviewAssessmentVendor> ReviewAssessmentVendors { get; set; }
         public virtual DbSet<ReviewAssessmentQuestion> ReviewAssessmentQuestions { get; set; }
         public virtual DbSet<ReviewAssessmentBusinessUnit> ReviewAssessmentBusinessUnits { get; set; }
         public virtual DbSet<ReviewAssessment> ReviewAssessments { get; set; }
-
         public virtual DbSet<EmployeeService> EmployeeServices { get; set; }
         public virtual DbSet<IssueManageMentProject> IssueManageMentProjects { get; set; }
         public virtual DbSet<IssueManagement> IssueManagements { get; set; }
