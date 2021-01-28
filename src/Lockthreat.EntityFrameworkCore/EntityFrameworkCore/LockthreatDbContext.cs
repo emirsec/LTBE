@@ -58,11 +58,26 @@ using Lockthreat.IssueManagements;
 using Lockthreat.ReviewAssessments;
 using Lockthreat.ReviewsAssessments;
 using Lockthreat.ReviewDatas;
+using Lockthreat.CAPA;
+using Lockthreat.Activitys;
+using Lockthreat.Pages;
+using Lockthreat.Templates;
 
 namespace Lockthreat.EntityFrameworkCore
 {
     public class LockthreatDbContext : AbpZeroDbContext<Tenant, Role, User, LockthreatDbContext>, IAbpPersistedGrantDbContext
     {
+
+        public virtual DbSet<Template> Templates { get; set; }
+        public virtual DbSet<StateAction> StateActions { get; set; }
+        public virtual DbSet<State> States { get; set; }
+        public virtual DbSet<PageField> PageFields { get; set; }
+        public virtual DbSet<Page> Pages { get; set; }
+        public virtual DbSet<ActivityStep> ActivitySteps { get; set; }
+        public virtual DbSet<ActivityAction> ActivityActions { get; set; }
+        public virtual DbSet<Activity> Activitys { get; set; }
+        public virtual DbSet<CapaDetail> CapaDetails { get; set; }
+
 
 
         public virtual DbSet<MeetingIssueIdentified> MeetingIssueIdentifieds { get; set; }
