@@ -24,6 +24,7 @@ using Lockthreat.Authorization.Users.Importing.Dto;
 using Lockthreat.Authorization.Users.Profile.Dto;
 using Lockthreat.Chat;
 using Lockthreat.Chat.Dto;
+using Lockthreat.Contacts.Dto;
 using Lockthreat.DynamicEntityProperties.Dto;
 using Lockthreat.Editions;
 using Lockthreat.Editions.Dto;
@@ -163,6 +164,24 @@ namespace Lockthreat
             configuration.CreateMap<CreateUserDelegationDto, UserDelegation>();
 
             /* ADD YOUR OWN CUSTOM AUTOMAPPER MAPPINGS HERE */
+
+            configuration.CreateMap<Contacts.Contact, ContactListViewDto>().
+                ForMember(x => x.ContactId, option => option.MapFrom(y => y.ContactId)).
+                ForMember(x => x.FirstName, option => option.MapFrom(y => y.FirstName)).
+                ForMember(x => x.LastName, option => option.MapFrom(y => y.LastName)).
+                ForMember(x => x.AddressOne, option => option.MapFrom(y => y.AddressOne)).
+                ForMember(x => x.City, option => option.MapFrom(y => y.City)).
+                ForMember(x => x.State, option => option.MapFrom(y => y.State)).
+                ForMember(x => x.jobTitle, option => option.MapFrom(y => y.jobTitle)).
+                ForMember(x => x.Id, option => option.MapFrom(y => y.Id)).
+                ForMember(x => x.MobileNo, option => option.MapFrom(y => y.MobileNo)).
+                ForMember(x => x.PhoneNumber, option => option.MapFrom(y => y.PhoneNumber)).
+                ForMember(x => x.Email, option => option.MapFrom(y => y.Email)).
+                ForMember(x => x.Vendor, option => option.MapFrom(y => y.Vendor == null ? "" : y.Vendor.VendorName.ToString())).
+                ForMember(x => x.LoginUser, option => option.MapFrom(y => y.LoginUser == null ? "" : y.LoginUser.Name.ToString())).
+                ForMember(x => x.Country, option => option.MapFrom(y => y.Country == null ? "" : y.Country.Value.ToString())).
+                ForMember(x => x.LockThreatOrganization, option => option.MapFrom(y => y.LockThreatOrganization == null ? "" : y.LockThreatOrganization.CompanyName.ToString()));
+
         }
     }
 }

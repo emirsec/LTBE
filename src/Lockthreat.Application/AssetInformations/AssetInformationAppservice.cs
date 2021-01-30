@@ -24,7 +24,7 @@ using Lockthreat.BusinessProcesses.Dto;
 
 namespace Lockthreat.AssetInformations
 {
-   public class AssetInformationAppservice : LockthreatAppServiceBase
+   public class AssetInformationAppservice : LockthreatAppServiceBase, IAssetInformationAppservice
     {
 
         private readonly ICountriesAppservice _countriesAppservice;

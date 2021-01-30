@@ -137,14 +137,16 @@ namespace Lockthreat.Contacts
                                        State = o.State,
                                        jobTitle = o.jobTitle,
                                        Id = o.Id,
-                                       Country = o.Country==null?"":o.Country.Value.ToString(),
-                                       MobileNo=o.MobileNo,
-                                       PhoneNumber=o.PhoneNumber,
-                                       Email=o.Email,
+                                       Country = o.Country == null ? "" : o.Country.Value.ToString(),
+                                       MobileNo = o.MobileNo,
+                                       PhoneNumber = o.PhoneNumber,
+                                       Email = o.Email,
                                        Vendor = o.Vendor == null ? "" : o.Vendor.VendorName.ToString(),
                                        LoginUser = o.LoginUser == null ? "" : o.LoginUser.Name.ToString(),
                                        LockThreatOrganization = o.LockThreatOrganization == null ? "" : o.LockThreatOrganization.CompanyName.ToString()
                                    }).OrderBy(input.Sorting).PageBy(input).ToListAsync();
+
+                //   var query = await (ObjectMapper.Map<IQueryable<ContactListViewDto>>(querys)).OrderBy(input.Sorting).PageBy(input).ToListAsync();
 
                 var contactCount = await querys.CountAsync();
 
