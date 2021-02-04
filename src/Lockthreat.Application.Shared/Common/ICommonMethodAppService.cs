@@ -11,6 +11,6 @@ namespace Lockthreat.Common
     public interface ICommonMethodAppService : IApplicationService
     {
         Task<List<GetDynamicValueDto>> GetDynamicPropertiesByPropertyName(string input);
-
+        string GetNextGeneratedId(string input);
     }
 }

@@ -34,7 +34,8 @@ namespace Lockthreat.Business
         private readonly IRepository<Abp.DynamicEntityProperties.DynamicProperty> _dynamicParameterManager;
         private readonly ICodeGeneratorCommonAppservice _codegeneratorRepository;
         private readonly IRepository<Employees.Employee, long> _employessRepository;
-
+        private readonly ICommonMethodAppService _commonMethodAppService;
+        
         public BusinessUnitAppService(
             IRepository<BusinessUnit, long> businessUnitRepository,
             IOrganizationUnitAppService organizationUnitAppService,
@@ -43,7 +44,8 @@ namespace Lockthreat.Business
             IRepository<DynamicPropertyValue> DynamicParameterValueRepository,
             IRepository<Abp.DynamicEntityProperties.DynamicProperty> dynamicParameterManager,
             ICodeGeneratorCommonAppservice codegeneratorRepository,
-            IRepository<Employees.Employee, long> employessRepository
+            IRepository<Employees.Employee, long> employessRepository,
+            ICommonMethodAppService commonMethodAppService
             )
         {
             _businessUnitRepository = businessUnitRepository;
@@ -54,6 +56,7 @@ namespace Lockthreat.Business
             _dynamicParameterManager = dynamicParameterManager;
             _codegeneratorRepository = codegeneratorRepository;
             _employessRepository = employessRepository;
+            _commonMethodAppService = commonMethodAppService;
         }
 
         public async Task<PagedResultDto<BusinessUnitListDto>> GetAllBusinessUnits(GetBusinessUnitInput input)
@@ -233,18 +236,7 @@ namespace Lockthreat.Business
 
         public string GetNextBusinessUnitId()
         {
-            string nextBusinessUnitId = "";
-            var businessUnitItem = _businessUnitRepository.GetAllList().LastOrDefault();
-            if (businessUnitItem != null)
-            {
-                nextBusinessUnitId = "BUI-" + (businessUnitItem.Id + 1);
-            }
-            else
-            {
-                nextBusinessUnitId = "BUI-1";
-            }
-
-            return nextBusinessUnitId;
+            return  _commonMethodAppService.GetNextGeneratedId(LockthreatCommonNextParameterConsts.BusinessUnit);
         }
 
        

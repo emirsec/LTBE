@@ -35,6 +35,7 @@ namespace Lockthreat.Business
         private readonly IRepository<LockThreatOrganization, long> _organizationSetupRepository;
         private readonly ICountriesAppservice _countriesAppservice;
         private readonly IRepository<BusinessService, long> _businessServicesRepository;
+        private readonly ICommonMethodAppService _commonMethodAppService;
         public BusinessProcessAppService(
             IRepository<BusinessProcess, long> businessProcessRepository,
             IRepository<Employees.Employee, long> employessRepository ,
@@ -46,7 +47,8 @@ namespace Lockthreat.Business
             IRepository<AuthoratativeDocuments.AuthoratativeDocument, long> authdocRepository,
             ICountriesAppservice countriesAppservice,
             IRepository<BusinessService, long> businessServicesRepository,
-            IRepository<LockThreatOrganization, long> organizationSetupRepository
+            IRepository<LockThreatOrganization, long> organizationSetupRepository,
+            ICommonMethodAppService commonMethodAppService
             )
         {
             _employessRepository = employessRepository;
@@ -60,6 +62,7 @@ namespace Lockthreat.Business
             _countriesAppservice = countriesAppservice;
             _authdocRepository = authdocRepository;
             _businessServicesRepository = businessServicesRepository;
+            _commonMethodAppService = commonMethodAppService;
         }
 
         public async Task<BusinessProcessDto> GetAllBusinessprocessInfo(long? businessProcessId)
@@ -276,18 +279,7 @@ namespace Lockthreat.Business
 
         public string GetNextBusinessProcessId()
         {
-            string nextBusinessId = "";
-            var Item = _businessProcessRepository.GetAllList().LastOrDefault();
-            if (Item != null)
-            {
-                nextBusinessId = "BPM-" + (Item.Id + 1);
-            }
-            else
-            {
-                nextBusinessId = "BPM-1";
-            }
-
-            return nextBusinessId;
+            return _commonMethodAppService.GetNextGeneratedId(LockthreatCommonNextParameterConsts.BusinessProcess);
         }
 
 

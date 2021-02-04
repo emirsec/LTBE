@@ -34,6 +34,7 @@ namespace Lockthreat.GRCPrograms
         private readonly IRepository<ProgramAuthoritativeDocument, long> _progAuthdocRepository;
         private readonly IRepository<ProgramCountry, long> _programCountriesRepository;
         private readonly ICodeGeneratorCommonAppservice _codegeneratorRepository;
+        private readonly ICommonMethodAppService _commonMethodAppService;
         public ProgramAppService(IRepository<GrcProgram, long> programRepository,
             IRepository<ProgramTeam, long> programTeamRepository,
             IRepository<ProgramCoordinator, long> programCoordinatorsRepository,
@@ -41,7 +42,8 @@ namespace Lockthreat.GRCPrograms
             IRepository<LockThreatOrganization, long> organizationSetupRepository, ICountriesAppservice countriesAppservice,
             IRepository<AuthoratativeDocuments.AuthoratativeDocument, long> authdocRepository,
             IRepository<ProgramAuthoritativeDocument, long> progAuthdocRepository,
-            IRepository<ProgramCountry, long> programCountriesRepository, ICodeGeneratorCommonAppservice codegeneratorRepository)
+            IRepository<ProgramCountry, long> programCountriesRepository, ICodeGeneratorCommonAppservice codegeneratorRepository,
+            ICommonMethodAppService commonMethodAppService)
         {
             _programRepository = programRepository;
             _programTeamRepository = programTeamRepository;
@@ -53,6 +55,7 @@ namespace Lockthreat.GRCPrograms
             _progAuthdocRepository = progAuthdocRepository;
             _programCountriesRepository = programCountriesRepository;
             _codegeneratorRepository = codegeneratorRepository;
+            _commonMethodAppService = commonMethodAppService;
         }
 
         public async Task<ProgramDto> GetProgramInfo(long? programId)
@@ -172,18 +175,7 @@ namespace Lockthreat.GRCPrograms
 
         public string GetNextPrgramId()
         {
-            string nextProjectId = "";
-            var projItem = _programRepository.GetAllList().LastOrDefault();
-            if (projItem != null)
-            {
-                nextProjectId = "PROG-" + (projItem.Id + 1);
-            }
-            else
-            {
-                nextProjectId = "PROG-1";
-            }
-
-            return nextProjectId;
+            return _commonMethodAppService.GetNextGeneratedId(LockthreatCommonNextParameterConsts.GRCProgram);
         }
 
         public async Task RemoveProgramTeamMember(long id)

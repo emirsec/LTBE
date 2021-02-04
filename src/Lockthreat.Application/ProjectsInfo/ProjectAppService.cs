@@ -40,6 +40,7 @@ namespace Lockthreat.ProjectsInfo
         private readonly IRepository<ProjectAudit, long> _ProjectAuditsRepository;
         private readonly IRepository<GrcProgram, long> _programRepository;
         private readonly ICodeGeneratorCommonAppservice _codegeneratorRepository;
+        private readonly ICommonMethodAppService _commonMethodAppService;
         public ProjectAppService(IRepository<Project, long> projectsDetailsRepository,
             IRepository<ProjectCountries, long> projectCountriesRepository,
             IRepository<ProjectTeamMember, long> projectTeamMemberInternalRepository,
@@ -52,7 +53,8 @@ namespace Lockthreat.ProjectsInfo
             IRepository<ProjectTeamMemberProject, long> projectTeamMemberRepository, 
             IRepository<ProjectComponent, long> projectComponentsRepository, 
             IRepository<ProjectAudit, long> projectAuditsRepository,
-            IRepository<GrcProgram, long> programRepository, ICodeGeneratorCommonAppservice codegeneratorRepository)
+            IRepository<GrcProgram, long> programRepository, ICodeGeneratorCommonAppservice codegeneratorRepository,
+            ICommonMethodAppService commonMethodAppService)
         {
             _projectsDetailsRepository = projectsDetailsRepository;
             _projectCountriesRepository = projectCountriesRepository;
@@ -68,24 +70,13 @@ namespace Lockthreat.ProjectsInfo
             _ProjectAuditsRepository = projectAuditsRepository;
             _programRepository = programRepository;
             _codegeneratorRepository = codegeneratorRepository;
+            _commonMethodAppService = commonMethodAppService;
         }
 
         public string GetNextProjectId()
         {
-            string nextProjectId = "";
-            var projItem = _projectsDetailsRepository.GetAllList().LastOrDefault();
-            if (projItem != null)
-            {
-                nextProjectId = "PROJ-" + (projItem.Id + 1);
-            }
-            else
-            {
-                nextProjectId = "PROJ-1";
-            }
-
-            return nextProjectId;
+            return _commonMethodAppService.GetNextGeneratedId(LockthreatCommonNextParameterConsts.ProjectDetail);
         }
-
 
         public async Task AddorEditProject(ProjectDto project)
         {

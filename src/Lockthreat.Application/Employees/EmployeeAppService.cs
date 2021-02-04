@@ -51,6 +51,7 @@ namespace Lockthreat.Employees
         public long[] tempUserIds = new long[1];
         private readonly IRepository<BusinessUnit, long> _bussinessUnitRepository;
         private readonly ICodeGeneratorCommonAppservice _codegeneratorRepository;
+        private readonly ICommonMethodAppService _commonMethodAppService;
         public EmployeeAppService(
             IRepository<Employee, long> employessRepository,
             IUserAppService userAppService,
@@ -64,7 +65,8 @@ namespace Lockthreat.Employees
             IRepository<User, long> userRepository,
             IOrganizationUnitAppService organizationUnitAppService,
             IRepository<BusinessUnit, long> bussinessUnitRepository,
-            ICodeGeneratorCommonAppservice codegeneratorRepository
+            ICodeGeneratorCommonAppservice codegeneratorRepository,
+            ICommonMethodAppService commonMethodAppService
             )
         {
             _employessRepository = employessRepository;
@@ -81,6 +83,7 @@ namespace Lockthreat.Employees
             _bussinessUnitRepository = bussinessUnitRepository;
             AppUrlService = NullAppUrlService.Instance;
             _codegeneratorRepository = codegeneratorRepository;
+            _commonMethodAppService = commonMethodAppService;
         }
 
 
@@ -356,19 +359,7 @@ namespace Lockthreat.Employees
 
         public string GetNextEmployeeId()
         {
-            string nextEmployeeId = "";
-            var empItem = _employessRepository.GetAllList().LastOrDefault();
-            if (empItem != null)
-            {
-                nextEmployeeId = "EMP-" + (empItem.Id + 1);
-            }
-            else
-            {
-                nextEmployeeId = "EMP-1";
-            }
-
-            return nextEmployeeId;
-
+            return _commonMethodAppService.GetNextGeneratedId(LockthreatCommonNextParameterConsts.Employee);
         }
 
         public async Task<List<ProgramUser>> GetAllEmployeeOraganization(long? Id)
