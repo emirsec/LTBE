@@ -22,6 +22,7 @@ using Lockthreat.Authorization.Users.Delegation.Dto;
 using Lockthreat.Authorization.Users.Dto;
 using Lockthreat.Authorization.Users.Importing.Dto;
 using Lockthreat.Authorization.Users.Profile.Dto;
+using Lockthreat.Business.Dto;
 using Lockthreat.Chat;
 using Lockthreat.Chat.Dto;
 using Lockthreat.Contacts.Dto;
@@ -31,6 +32,7 @@ using Lockthreat.Editions.Dto;
 using Lockthreat.Friendships;
 using Lockthreat.Friendships.Cache;
 using Lockthreat.Friendships.Dto;
+using Lockthreat.GRCPrograms.Dto;
 using Lockthreat.Localization.Dto;
 using Lockthreat.MultiTenancy;
 using Lockthreat.MultiTenancy.Dto;
@@ -76,7 +78,7 @@ namespace Lockthreat
             configuration.CreateMap<Role, RoleListDto>();
             configuration.CreateMap<UserRole, UserListRoleDto>();
 
-            
+
 
             //Edition
             configuration.CreateMap<EditionEditDto, SubscribableEdition>().ReverseMap();
@@ -159,7 +161,7 @@ namespace Lockthreat
             configuration.CreateMap<DynamicEntityPropertyDto, DynamicEntityProperty>();
 
             configuration.CreateMap<DynamicEntityPropertyValue, DynamicEntityPropertyValueDto>().ReverseMap();
-            
+
             //User Delegations
             configuration.CreateMap<CreateUserDelegationDto, UserDelegation>();
 
@@ -182,6 +184,8 @@ namespace Lockthreat
                 ForMember(x => x.Country, option => option.MapFrom(y => y.Country == null ? "" : y.Country.Value.ToString())).
                 ForMember(x => x.LockThreatOrganization, option => option.MapFrom(y => y.LockThreatOrganization == null ? "" : y.LockThreatOrganization.CompanyName.ToString()));
 
+            configuration.CreateMap<GetDynamicValueDto, UnitTypeDto>().ForMember(x => x.Id, option => option.MapFrom(y => y.Id)).ForMember(x => x.Name, option => option.MapFrom(y => y.Value));
+            
         }
     }
 }

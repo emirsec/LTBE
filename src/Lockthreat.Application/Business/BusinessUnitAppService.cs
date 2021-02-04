@@ -238,7 +238,6 @@ namespace Lockthreat.Business
         {
             return  _commonMethodAppService.GetNextGeneratedId(LockthreatCommonNextParameterConsts.BusinessUnit);
         }
-
        
         public async Task<List<UpdateOrganizationUnitInput>> GetAllOrganizationUnits()
         {
@@ -270,19 +269,10 @@ namespace Lockthreat.Business
             var getUnitType = new List<UnitTypeDto>();
             try
             {
-                var getcheck = _dynamicParameterManager.GetAll().FirstOrDefault(x => x.PropertyName.ToLower().Trim() == "unit type");
-                if(getcheck!=null)
-                {
-                    getUnitType = await _DynamicParameterValueRepository.GetAll()
-                        .Where(l => l.DynamicPropertyId == getcheck.Id)
-                         .Select(x => new UnitTypeDto()
-                         {
-                             Id = x.Id,
-                             Name = x.Value,
-                         }).OrderBy(x => x.Id).ToListAsync();
+                var query = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("unit type");
+                getUnitType = ObjectMapper.Map<List<UnitTypeDto>>(query);
+                return getUnitType;               
 
-                    return getUnitType;
-                }
             }
             catch(Exception ex)
             {

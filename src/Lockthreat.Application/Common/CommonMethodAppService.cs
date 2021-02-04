@@ -75,7 +75,7 @@ namespace Lockthreat.Common
             {
                 case LockthreatCommonNextParameterConsts.BusinessProcess :
                     var businessProcessObj = _businessProcessRepository.GetAllList().LastOrDefault();
-                    if (businessProcessObj != null)       
+                    if (businessProcessObj != null)
                         result = LockthreatCommonNextParameterConsts.BusinessProcessCode + "" + (businessProcessObj.Id + 1);
                     else
                         result = LockthreatCommonNextParameterConsts.BusinessProcessCode + "1";
@@ -115,7 +115,7 @@ namespace Lockthreat.Common
 
                 default:
                     break;
-            }          
+            }
 
             return result;
         }
