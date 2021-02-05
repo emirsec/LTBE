@@ -26,6 +26,7 @@ using Lockthreat.Business.Dto;
 using Lockthreat.Chat;
 using Lockthreat.Chat.Dto;
 using Lockthreat.Contacts.Dto;
+using Lockthreat.Countries.Dto;
 using Lockthreat.DynamicEntityProperties.Dto;
 using Lockthreat.Editions;
 using Lockthreat.Editions.Dto;
@@ -34,6 +35,7 @@ using Lockthreat.Friendships.Cache;
 using Lockthreat.Friendships.Dto;
 using Lockthreat.GRCPrograms.Dto;
 using Lockthreat.Localization.Dto;
+using Lockthreat.Meetings.Dto;
 using Lockthreat.MultiTenancy;
 using Lockthreat.MultiTenancy.Dto;
 using Lockthreat.MultiTenancy.HostDashboard.Dto;
@@ -185,6 +187,8 @@ namespace Lockthreat
                 ForMember(x => x.LockThreatOrganization, option => option.MapFrom(y => y.LockThreatOrganization == null ? "" : y.LockThreatOrganization.CompanyName.ToString()));
 
             configuration.CreateMap<GetDynamicValueDto, UnitTypeDto>().ForMember(x => x.Id, option => option.MapFrom(y => y.Id)).ForMember(x => x.Name, option => option.MapFrom(y => y.Value));
+            configuration.CreateMap<GetDynamicValueDto, CountryDto>().ForMember(x => x.Id, option => option.MapFrom(y => y.Id)).ForMember(x => x.Name, option => option.MapFrom(y => y.Value));
+            configuration.CreateMap<GetDynamicValueDto, DynamicNameValueDto>().ForMember(x => x.Id, option => option.MapFrom(y => y.Id)).ForMember(x => x.Name, option => option.MapFrom(y => y.Value));
             
         }
     }

@@ -30,8 +30,6 @@ namespace Lockthreat.Business
         private readonly IRepository<BusinessUnit, long> _businessUnitRepository;
         private readonly IRepository<OrganizationUnit, long> _organizationUnitRepository;
         private readonly IRepository<LockThreatOrganization, long> _organizationSetupRepository;
-        private readonly IRepository<DynamicPropertyValue> _DynamicParameterValueRepository;
-        private readonly IRepository<Abp.DynamicEntityProperties.DynamicProperty> _dynamicParameterManager;
         private readonly ICodeGeneratorCommonAppservice _codegeneratorRepository;
         private readonly IRepository<Employees.Employee, long> _employessRepository;
         private readonly ICommonMethodAppService _commonMethodAppService;
@@ -41,8 +39,6 @@ namespace Lockthreat.Business
             IOrganizationUnitAppService organizationUnitAppService,
             IRepository<OrganizationUnit, long> organizationUnitRepository,
             IRepository<LockThreatOrganization, long> organizationSetupRepository,
-            IRepository<DynamicPropertyValue> DynamicParameterValueRepository,
-            IRepository<Abp.DynamicEntityProperties.DynamicProperty> dynamicParameterManager,
             ICodeGeneratorCommonAppservice codegeneratorRepository,
             IRepository<Employees.Employee, long> employessRepository,
             ICommonMethodAppService commonMethodAppService
@@ -52,8 +48,6 @@ namespace Lockthreat.Business
             _organizationUnitAppService = organizationUnitAppService;
             _organizationUnitRepository = organizationUnitRepository;
             _organizationSetupRepository = organizationSetupRepository;
-            _DynamicParameterValueRepository = DynamicParameterValueRepository;
-            _dynamicParameterManager = dynamicParameterManager;
             _codegeneratorRepository = codegeneratorRepository;
             _employessRepository = employessRepository;
             _commonMethodAppService = commonMethodAppService;

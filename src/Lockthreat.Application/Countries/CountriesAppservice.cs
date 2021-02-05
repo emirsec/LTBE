@@ -1,6 +1,7 @@
 ﻿using Abp.Domain.Repositories;
 using Abp.DynamicEntityProperties;
 using AutoMapper;
+using Lockthreat.Common;
 using Lockthreat.Countries.Dto;
 using Lockthreat.DynamicEntityProperties.Dto;
 using Lockthreat.Meetings.Dto;
@@ -19,189 +20,55 @@ namespace Lockthreat.Countries
 
         private readonly IRepository<DynamicPropertyValue> _DynamicParameterValueRepository;
         private readonly IRepository<DynamicProperty> _dynamicParameterManager;
+        private readonly ICommonMethodAppService _commonMethodAppService;
 
         public CountriesAppservice(
           IRepository<DynamicPropertyValue> DynamicParameterValueRepository,
-          IRepository<DynamicProperty> dynamicParameterManager
+          IRepository<DynamicProperty> dynamicParameterManager,
+            ICommonMethodAppService commonMethodAppService
           )
         {
             _DynamicParameterValueRepository = DynamicParameterValueRepository;
             _dynamicParameterManager = dynamicParameterManager;
+            _commonMethodAppService = commonMethodAppService;
         }
         public async Task<List<CountryDto>> GetAll()
         {
-
             var getCountries = new List<CountryDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == "country");
-                if (getcheckId != null)
-                {
-                    getCountries = await _DynamicParameterValueRepository.GetAll()
-                       .Where(l => l.DynamicPropertyId == getcheckId.Id)
-                        .Select(x => new CountryDto()
-                        {
-                            Id = x.Id,
-                            Name = x.Value,
-                        }).ToListAsync();
-
-                    return getCountries;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            var query = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("country");
+            getCountries = ObjectMapper.Map<List<CountryDto>>(query);
             return getCountries;
         }
         public async Task<List<GetDynamicValueDto>> GetAllConfidentiality()
         {
-            var getconfidentiality = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == "confidentiality");
-                if (getcheckId != null)
-                {
-
-                    var getConfidentiality = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-
-                    if (getConfidentiality.Count() != 0)
-                    {
-                        getconfidentiality = ObjectMapper.Map<List<GetDynamicValueDto>>(getConfidentiality);
-                    }
-                    return getconfidentiality;
-
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return getconfidentiality;
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("confidentiality");
+            return result;
         }
         public async Task<List<GetDynamicValueDto>> GetAllServiceType()
         {
-            var getserviceTypes = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == "service type");
-                if (getcheckId != null)
-                {
-
-                    var getserviceType = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-
-                    if (getserviceType.Count() != 0)
-                    {
-                        getserviceTypes = ObjectMapper.Map<List<GetDynamicValueDto>>(getserviceType);
-                    }
-                    return getserviceTypes;
-
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return getserviceTypes;
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("service type");
+            return result;            
         }
         public async Task<List<GetDynamicValueDto>> GetAllIntergrity()
         {
-            var getinintegrity  = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == "integrity");
-                if (getcheckId != null)
-                {
-
-                    var getConfidentiality = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-
-                    if (getConfidentiality.Count() != 0)
-                    {
-                        getinintegrity = ObjectMapper.Map<List<GetDynamicValueDto>>(getConfidentiality);
-                    }
-                    return getinintegrity;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return getinintegrity;
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("integrity");
+            return result;
         }
         public async Task<List<GetDynamicValueDto>> GetAllOthers()
         {
-            var getothers = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == "others");
-                if (getcheckId != null)
-                {
-
-                    var getother = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-
-                    if (getother.Count() != 0)
-                    {
-                        getothers = ObjectMapper.Map<List<GetDynamicValueDto>>(getother);
-                    }
-                    return getothers;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return getothers;
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("others");
+            return result;
         }
         public async Task<List<GetDynamicValueDto>> GetAvailibility()
         {
-            var getavailibility = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == "availibility");
-                if (getcheckId != null)
-                {
-
-                    var getother = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-
-                    if (getother.Count() != 0)
-                    {
-                        getavailibility = ObjectMapper.Map<List<GetDynamicValueDto>>(getother);
-                    }
-                    return getavailibility;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return getavailibility;
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("availibility");
+            return result;
         }
         public async Task<List<DynamicNameValueDto>> GetIndustrySectors()
         {
             var getIndustrySectors = new List<DynamicNameValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == "industry sector");
-                if (getcheckId != null)
-                {
-
-                    var getother = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id)
-                        .Select(x => new DynamicNameValueDto()
-                        {
-                            Id = x.Id,
-                            Name = x.Value,
-                        }).ToListAsync();
-                    if (getother.Count() != 0)
-                    {
-                        getIndustrySectors = ObjectMapper.Map<List<DynamicNameValueDto>>(getother);
-                    }
-                    return getIndustrySectors;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            var query = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("industry sector");
+            getIndustrySectors = ObjectMapper.Map<List<DynamicNameValueDto>>(query);
             return getIndustrySectors;
         }
         public async Task<List<DynamicNameValueDto>> GetComponents()
@@ -235,635 +102,146 @@ namespace Lockthreat.Countries
         }
         public async Task<List<GetDynamicValueDto>> GetAllGrade()
         {
-            var getallgrade  = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == "employee grade");
-                if (getcheckId != null)
-                {
-
-                    var getother = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-
-                    if (getother.Count() != 0)
-                    {
-                        getallgrade = ObjectMapper.Map<List<GetDynamicValueDto>>(getother);
-                    }
-                    return getallgrade;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return getallgrade;
-        }            
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("employee grade");
+            return result;            
+        }
         public async Task<List<GetDynamicValueDto>> GetAllUserType()
         {
-
-            var getalluser = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == "user type");
-                if (getcheckId != null)
-                {
-
-                    var getother = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-
-                    if (getother.Count() != 0)
-                    {
-                        getalluser = ObjectMapper.Map<List<GetDynamicValueDto>>(getother);
-                    }
-                    return getalluser;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return getalluser;
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("user type");
+            return result;            
         }
         public async Task<List<GetDynamicValueDto>> GetAllStrategicGoal()
         {
-            var getAllGoal  = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == "strategic goal");
-                if (getcheckId != null)
-                {
-
-                    var getgoal  = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-                    if (getgoal.Count() != 0)
-                    {
-                        getAllGoal = ObjectMapper.Map<List<GetDynamicValueDto>>(getgoal);
-                    }
-                    return getAllGoal;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return getAllGoal;
-
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("strategic goal");
+            return result;
         }
         public async Task<List<GetDynamicValueDto>> GetAllStrategicType()
         {
-            var getAllStrategicType   = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() =="strategic type");
-                if (getcheckId != null)
-                {
-
-                    var getStrategicType = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-
-                    if (getStrategicType.Count() != 0)
-                    {
-                        getAllStrategicType = ObjectMapper.Map<List<GetDynamicValueDto>>(getStrategicType);
-                    }
-                    return getAllStrategicType;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return getAllStrategicType;
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("strategic type");
+            return result;
         }
-        public async Task<List<GetDynamicValueDto>> GetAllStrategicStatus ()
+        public async Task<List<GetDynamicValueDto>> GetAllStrategicStatus()
         {
-            var getAllStrategicStatus  = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == "strategic status");
-                if (getcheckId != null)
-                {
-
-                    var getStrategicStatus  = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-
-                    if (getStrategicStatus.Count() != 0)
-                    {
-                        getAllStrategicStatus = ObjectMapper.Map<List<GetDynamicValueDto>>(getStrategicStatus);
-                    }
-                    return getAllStrategicStatus;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return getAllStrategicStatus;
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("strategic status");
+            return result;
         }
         public async Task<List<GetDynamicValueDto>> GetAllRiskGroup()
         {
-            var getAllStrategicStatus = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == "risk group");
-                if (getcheckId != null)
-                {
-
-                    var getStrategicStatus = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-
-                    if (getStrategicStatus.Count() != 0)
-                    {
-                        getAllStrategicStatus = ObjectMapper.Map<List<GetDynamicValueDto>>(getStrategicStatus);
-                    }
-                    return getAllStrategicStatus;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return getAllStrategicStatus;
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("risk group");
+            return result;
         }
         public async Task<List<GetDynamicValueDto>> GetKeyRiskStatus()
         {
-            var getAllKeyRiskStatus  = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == "status");
-                if (getcheckId != null)
-                {
-
-                    var getKeyRiskStatus  = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-                    if (getKeyRiskStatus.Count() != 0)
-                    {
-                        getAllKeyRiskStatus = ObjectMapper.Map<List<GetDynamicValueDto>>(getKeyRiskStatus);
-                    }
-                    return getAllKeyRiskStatus;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            } 
-            return getAllKeyRiskStatus;
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("status");
+            return result;
         }
         public async Task<List<GetDynamicValueDto>> GetFrequency()
         {
-            var frequencys  = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == "frequency");
-                if (getcheckId != null)
-                {
-
-                    var frequency = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-                    if (frequency.Count() != 0)
-                    {
-                        frequencys = ObjectMapper.Map<List<GetDynamicValueDto>>(frequency);
-                    }
-                    return frequencys;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return frequencys;
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("frequency");
+            return result;
         }
-        public async Task<List<GetDynamicValueDto>> GetProcessType ()
+        public async Task<List<GetDynamicValueDto>> GetProcessType()
         {
-            var frequencys = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == "process type");
-                if (getcheckId != null)
-                {
-
-                    var frequency = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-                    if (frequency.Count() != 0)
-                    {
-                        frequencys = ObjectMapper.Map<List<GetDynamicValueDto>>(frequency);
-                    }
-                    return frequencys;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return frequencys;
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("process type");
+            return result;
         }
-        public async Task<List<GetDynamicValueDto>> GetSLA ()
+        public async Task<List<GetDynamicValueDto>> GetSLA()
         {
-            var frequencys = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == "sla");
-                if (getcheckId != null)
-                {
-
-                    var frequency = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-                    if (frequency.Count() != 0)
-                    {
-                        frequencys = ObjectMapper.Map<List<GetDynamicValueDto>>(frequency);
-                    }
-                    return frequencys;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return frequencys;
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("sla");
+            return result;
         }
-        public async Task<List<GetDynamicValueDto>> GetRiviewperiod ()
+        public async Task<List<GetDynamicValueDto>> GetRiviewperiod()
         {
-            var frequencys = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == "riview period");
-                if (getcheckId != null)
-                {
-
-                    var frequency = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-                    if (frequency.Count() != 0)
-                    {
-                        frequencys = ObjectMapper.Map<List<GetDynamicValueDto>>(frequency);
-                    }
-                    return frequencys;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return frequencys;
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("riview period");
+            return result;
         }
         public async Task<List<GetDynamicValueDto>> GetProcessStatus()
         {
-            var frequencys = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == "process status");
-                if (getcheckId != null)
-                {
-
-                    var frequency = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-                    if (frequency.Count() != 0)
-                    {
-                        frequencys = ObjectMapper.Map<List<GetDynamicValueDto>>(frequency);
-                    }
-                    return frequencys;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return frequencys;
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("process status");
+            return result;
         }
         public async Task<List<GetDynamicValueDto>> GetActivity()
         {
-            var frequencys = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == "activity");
-                if (getcheckId != null)
-                {
-
-                    var frequency = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-                    if (frequency.Count() != 0)
-                    {
-                        frequencys = ObjectMapper.Map<List<GetDynamicValueDto>>(frequency);
-                    }
-                    return frequencys;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return frequencys;
-
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("activity");
+            return result;
         }
-        public async Task<List<GetDynamicValueDto>> GetProcessPriority ()
-            {
-                var frequencys = new List<GetDynamicValueDto>();
-                try
-                {
-                    var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == "process priority");
-                    if (getcheckId != null)
-                    {
-
-                        var frequency = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-                        if (frequency.Count() != 0)
-                        {
-                            frequencys = ObjectMapper.Map<List<GetDynamicValueDto>>(frequency);
-                        }
-                        return frequencys;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    throw;
-                }
-                return frequencys;
-            }
-        public async Task<List<GetDynamicValueDto>> GetMeeetingType ()
+        public async Task<List<GetDynamicValueDto>> GetProcessPriority()
         {
-            var meetingtype  = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == ("Meeting Type").ToLower().Trim());
-                if (getcheckId != null)
-                {
-
-                    var meetingTypes  = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-                    if (meetingTypes.Count() != 0)
-                    {
-                        meetingtype = ObjectMapper.Map<List<GetDynamicValueDto>>(meetingTypes);
-                    }
-                    return meetingtype;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return meetingtype;
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("process priority");
+            return result;
         }
-        public async Task<List<GetDynamicValueDto>> GetMeetingClassification ()
+        public async Task<List<GetDynamicValueDto>> GetMeeetingType()
         {
-            var meetingClassifications  = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == ("Meeting Classification").ToLower().Trim());
-                if (getcheckId != null)
-                {
-
-                    var meetingClassification = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-                    if (meetingClassification.Count() != 0)
-                    {
-                        meetingClassifications = ObjectMapper.Map<List<GetDynamicValueDto>>(meetingClassification);
-                    }
-                    return meetingClassifications;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return meetingClassifications;
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("Meeting Type");
+            return result;
+        }
+        public async Task<List<GetDynamicValueDto>> GetMeetingClassification()
+        {
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("Meeting Classification");
+            return result;
         }
         public async Task<List<GetDynamicValueDto>> GetRiskLevel()
         {
-            var meetingClassifications = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == ("Risk Level").ToLower().Trim());
-                if (getcheckId != null)
-                {
-
-                    var meetingClassification = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-                    if (meetingClassification.Count() != 0)
-                    {
-                        meetingClassifications = ObjectMapper.Map<List<GetDynamicValueDto>>(meetingClassification);
-                    }
-                    return meetingClassifications;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return meetingClassifications;
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("Risk Level");
+            return result;
         }
         public async Task<List<GetDynamicValueDto>> GetTaskLinked()
         {
-            var meetingClassifications = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == ("Task Link To").ToLower().Trim());
-                if (getcheckId != null)
-                {
-
-                    var meetingClassification = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-                    if (meetingClassification.Count() != 0)
-                    {
-                        meetingClassifications = ObjectMapper.Map<List<GetDynamicValueDto>>(meetingClassification);
-                    }
-                    return meetingClassifications;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return meetingClassifications;
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("Task Link To");
+            return result;
         }
-        public async Task<List<GetDynamicValueDto>> GetTaskType ()
+        public async Task<List<GetDynamicValueDto>> GetTaskType()
         {
-            var meetingClassifications = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == ("Task Type").ToLower().Trim());
-                if (getcheckId != null)
-                {
-
-                    var meetingClassification = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-                    if (meetingClassification.Count() != 0)
-                    {
-                        meetingClassifications = ObjectMapper.Map<List<GetDynamicValueDto>>(meetingClassification);
-                    }
-                    return meetingClassifications;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return meetingClassifications;
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("Task Type");
+            return result;
         }
         public async Task<List<GetDynamicValueDto>> GetFacilityType()
         {
-            var meetingClassifications = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == ("Facility Type").ToLower().Trim());
-                if (getcheckId != null)
-                {
-
-                    var meetingClassification = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-                    if (meetingClassification.Count() != 0)
-                    {
-                        meetingClassifications = ObjectMapper.Map<List<GetDynamicValueDto>>(meetingClassification);
-                    }
-                    return meetingClassifications;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return meetingClassifications;
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("Facility Type");
+            return result;
         }
         public async Task<List<GetDynamicValueDto>> GetAssetType()
         {
-            var meetingClassifications = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == ("Asset Type").ToLower().Trim());
-                if (getcheckId != null)
-                {
-
-                    var meetingClassification = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-                    if (meetingClassification.Count() != 0)
-                    {
-                        meetingClassifications = ObjectMapper.Map<List<GetDynamicValueDto>>(meetingClassification);
-                    }
-                    return meetingClassifications;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return meetingClassifications;
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("Asset Type");
+            return result;
         }
-        public async Task<List<GetDynamicValueDto>> GetAssetCategorys() 
+        public async Task<List<GetDynamicValueDto>> GetAssetCategorys()
         {
-            var meetingClassifications = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == ("Asset Category").ToLower().Trim());
-                if (getcheckId != null)
-                {
-
-                    var meetingClassification = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-                    if (meetingClassification.Count() != 0)
-                    {
-                        meetingClassifications = ObjectMapper.Map<List<GetDynamicValueDto>>(meetingClassification);
-                    }
-                    return meetingClassifications;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return meetingClassifications;
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("Asset Category");
+            return result;
         }
-        public async Task<List<GetDynamicValueDto>> GetAssetLabels() 
+        public async Task<List<GetDynamicValueDto>> GetAssetLabels()
         {
-            var meetingClassifications = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == ("Asset Label").ToLower().Trim());
-                if (getcheckId != null)
-                {
-                    var meetingClassification = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-                    if (meetingClassification.Count() != 0)
-                    {
-                        meetingClassifications = ObjectMapper.Map<List<GetDynamicValueDto>>(meetingClassification);
-                    }
-                    return meetingClassifications;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return meetingClassifications;
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("Asset Label");
+            return result;
         }
         public async Task<List<GetDynamicValueDto>> GetAuditYear()
         {
-            var meetingClassifications = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == ("Fiscal Year").ToLower().Trim());
-                if (getcheckId != null)
-                {
-                    var meetingClassification = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-                    if (meetingClassification.Count() != 0)
-                    {
-                        meetingClassifications = ObjectMapper.Map<List<GetDynamicValueDto>>(meetingClassification);
-                    }
-                    return meetingClassifications;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return meetingClassifications;
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("Fiscal Year");
+            return result;
         }
         public async Task<List<GetDynamicValueDto>> GetAuditArea()
         {
-            var meetingClassifications = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == ("Audit Area").ToLower().Trim());
-                if (getcheckId != null)
-                {
-                    var meetingClassification = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-                    if (meetingClassification.Count() != 0)
-                    {
-                        meetingClassifications = ObjectMapper.Map<List<GetDynamicValueDto>>(meetingClassification);
-                    }
-                    return meetingClassifications;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return meetingClassifications;
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("Audit Area");
+            return result;
         }
-        public async Task<List<GetDynamicValueDto>> GetExceptionType ()
+        public async Task<List<GetDynamicValueDto>> GetExceptionType()
         {
-            var meetingClassifications = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == ("Type").ToLower().Trim());
-                if (getcheckId != null)
-                {
-                    var meetingClassification = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-                    if (meetingClassification.Count() != 0)
-                    {
-                        meetingClassifications = ObjectMapper.Map<List<GetDynamicValueDto>>(meetingClassification);
-                    }
-                    return meetingClassifications;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return meetingClassifications;
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("Type");
+            return result;
         }
-        public async Task<List<GetDynamicValueDto>> GetExceptionReviewStatus ()
+        public async Task<List<GetDynamicValueDto>> GetExceptionReviewStatus()
         {
-            var meetingClassifications = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == ("Review Status").ToLower().Trim());
-                if (getcheckId != null)
-                {
-                    var meetingClassification = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-                    if (meetingClassification.Count() != 0)
-                    {
-                        meetingClassifications = ObjectMapper.Map<List<GetDynamicValueDto>>(meetingClassification);
-                    }
-                    return meetingClassifications;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return meetingClassifications;
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("Review Status");
+            return result;
         }
-        public async Task<List<FacilitieIdDto>> GetFacilitieId ()
+        public async Task<List<FacilitieIdDto>> GetFacilitieId()
         {
             var getid = new List<FacilitieIdDto>();
             try
             {
-                  getid = await _DynamicParameterValueRepository.GetAll().Where(l => l.Value.ToLower().Trim() == ("Meeting and Board Room").ToLower().Trim() || ( l.Value.ToLower().Trim() == ("Offices").ToLower().Trim())).Select (x=> new FacilitieIdDto {Id=x.Id } ).ToListAsync();                                    
-                  return getid;               
+                getid = await _DynamicParameterValueRepository.GetAll().Where(l => l.Value.ToLower().Trim() == ("Meeting and Board Room").ToLower().Trim() || (l.Value.ToLower().Trim() == ("Offices").ToLower().Trim())).Select(x => new FacilitieIdDto { Id = x.Id }).ToListAsync();
+                return getid;
             }
             catch (Exception ex)
             {
@@ -873,139 +251,37 @@ namespace Lockthreat.Countries
 
         public async Task<List<GetDynamicValueDto>> GetVendorType()
         {
-            var vendorTypes = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == ("Vendor Type").ToLower().Trim());
-                if (getcheckId != null)
-                {
-                    var vendorType  = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-                    if (vendorType.Count() != 0)
-                    {
-                        vendorTypes = ObjectMapper.Map<List<GetDynamicValueDto>>(vendorType);
-                    }
-                    return vendorTypes;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return vendorTypes;
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("Vendor Type");
+            return result;
         }
 
         public async Task<List<GetDynamicValueDto>> GetIndustroy()
         {
-            var vendorTypes = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == ("Industry").ToLower().Trim());
-                if (getcheckId != null)
-                {
-                    var vendorType = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-                    if (vendorType.Count() != 0)
-                    {
-                        vendorTypes = ObjectMapper.Map<List<GetDynamicValueDto>>(vendorType);
-                    }
-                    return vendorTypes;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return vendorTypes;
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("Industry");
+            return result;
         }
 
         public async Task<List<GetDynamicValueDto>> GetVendorProductType()
         {
-            var ProductTypes  = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == ("Product Type").ToLower().Trim());
-                if (getcheckId != null)
-                {
-                    var ProductType  = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-                    if (ProductType.Count() != 0)
-                    {
-                        ProductTypes = ObjectMapper.Map<List<GetDynamicValueDto>>(ProductType);
-                    }
-                    return ProductTypes;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return ProductTypes;
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("Product Type");
+            return result;
         }
 
         public async Task<List<GetDynamicValueDto>> GetContactType()
         {
-            var ProductTypes = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == ("Contact Type").ToLower().Trim());
-                if (getcheckId != null)
-                {
-                    var ProductType = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-                    if (ProductType.Count() != 0)
-                    {
-                        ProductTypes = ObjectMapper.Map<List<GetDynamicValueDto>>(ProductType);
-                    }
-                    return ProductTypes;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return ProductTypes;
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("Contact Type");
+            return result;
         }
 
         public async Task<List<GetDynamicValueDto>> GetContractType()
         {
-            var ProductTypes = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == ("Contract Type").ToLower().Trim());
-                if (getcheckId != null)
-                {
-                    var ProductType = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-                    if (ProductType.Count() != 0)
-                    {
-                        ProductTypes = ObjectMapper.Map<List<GetDynamicValueDto>>(ProductType);
-                    }
-                    return ProductTypes;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return ProductTypes;
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("Contract Type");
+            return result;
         }
         public async Task<List<GetDynamicValueDto>> GetContractCategory()
-        { 
-            var ProductTypes = new List<GetDynamicValueDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == ("Contract Category").ToLower().Trim());
-                if (getcheckId != null)
-                {
-                    var ProductType = await _DynamicParameterValueRepository.GetAll().Where(l => l.DynamicPropertyId == getcheckId.Id).ToListAsync();
-                    if (ProductType.Count() != 0)
-                    {
-                        ProductTypes = ObjectMapper.Map<List<GetDynamicValueDto>>(ProductType);
-                    }
-                    return ProductTypes;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            return ProductTypes;
+        {
+            var result = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("Contract Category");
+            return result;
         }
 
     }
