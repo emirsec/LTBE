@@ -1,5 +1,6 @@
 ﻿using Abp.Domain.Repositories;
 using Abp.DynamicEntityProperties;
+using Lockthreat.Common;
 using Lockthreat.IndustrySectors.Dto;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -7,47 +8,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace Lockthreat.IndustrySectors
 {
 
 
-    public class IndustrySectorsAppService : IIndustrySectorAppService
+    public class IndustrySectorsAppService : LockthreatAppServiceBase, IIndustrySectorAppService
     {
-        private readonly IRepository<DynamicPropertyValue> _DynamicParameterValueRepository;
-        private readonly IRepository<DynamicProperty> _dynamicParameterManager;
+        private readonly ICommonMethodAppService _commonMethodAppService;
 
-        public IndustrySectorsAppService(
-          IRepository<DynamicPropertyValue> DynamicParameterValueRepository, 
-          IRepository<DynamicProperty> dynamicParameterManager
-          )
+        public IndustrySectorsAppService(ICommonMethodAppService commonMethodAppService)
         {
-            _DynamicParameterValueRepository = DynamicParameterValueRepository;
-            _dynamicParameterManager = dynamicParameterManager;
+            _commonMethodAppService = commonMethodAppService;
         }
+
         public async Task<List<IndustrySectorDto>> GetAll()
         {
             var getIndustrySector = new List<IndustrySectorDto>();
-            try
-            {
-                var getcheckId = _dynamicParameterManager.FirstOrDefault(x => x.PropertyName.ToLower().Trim() == "industry sector");
-                if (getcheckId != null)
-                {
-                     getIndustrySector = await _DynamicParameterValueRepository.GetAll()
-                        .Where(l => l.DynamicPropertyId == getcheckId.Id)
-                         .Select(x => new IndustrySectorDto()
-                         {
-                             Id = x.Id,
-                             Name = x.Value,
-                         }).ToListAsync();
-
-                    return getIndustrySector;
-                }
-            }
-            catch(Exception ex)
-            {
-                throw;
-            }
+            var query = await _commonMethodAppService.GetDynamicPropertiesByPropertyName("industry sector");
+            getIndustrySector = ObjectMapper.Map<List<IndustrySectorDto>>(query);
             return getIndustrySector;
         }
     }
